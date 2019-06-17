@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.facebook.react.uimanager.PointerEvents;
 import com.facebook.react.uimanager.ReactPointerEventsView;
+import java.lang.reflect.Field;
 
 public class Screen extends ViewGroup implements ReactPointerEventsView {
 
@@ -86,6 +87,17 @@ public class Screen extends ViewGroup implements ReactPointerEventsView {
 
   protected void setContainer(@Nullable ScreenContainer mContainer) {
     this.mContainer = mContainer;
+    if (mContainer == null) {
+      try {
+        Field f = mFragment.getClass().getSuperclass().getDeclaredField("mContainerId");
+        f.setAccessible(true);
+        f.set(this.mFragment, 0);
+      } catch(NoSuchFieldException e) {
+        // Eat the error, nom nom
+      } catch(IllegalAccessException e) {
+        // This one too. It is delicious.
+      }
+    }
   }
 
   protected @Nullable ScreenContainer getContainer() {
