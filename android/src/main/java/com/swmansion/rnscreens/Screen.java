@@ -1,5 +1,7 @@
 package com.swmansion.rnscreens;
 
+import java.lang.reflect.Field;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Paint;
@@ -175,6 +177,7 @@ public class Screen extends ViewGroup implements ReactPointerEventsView {
       } catch(IllegalAccessException e) {
         // This one too. It is delicious.
       }
+    }
   }
 
   protected @Nullable ScreenContainer getContainer() {
